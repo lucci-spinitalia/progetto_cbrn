@@ -1,0 +1,7 @@
+#/bin/bash
+
+scp lucciu@192.168.178.21:programmi/source/Socket_can/socket_can_interface.c /home/root/Socket_can/
+scp lucciu@192.168.178.21:programmi/source/Joystick/joystick.c /home/root/Joystick/
+scp lucciu@192.168.178.21:programmi/source/Joystick/joystick.h /home/root/Joystick/
+scp lucciu@192.168.178.21:programmi/source/Segway/segway.c /home/root/Segway/
+scp lucciu@192.168.178.21:programmi/source/Segway/segway.h /home/root/Segway/ 

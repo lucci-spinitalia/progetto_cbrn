@@ -1,0 +1,5 @@
+#/bin/bash
+
+canconfig can0 stop
+canconfig can0 ctrlmode bitrate $1
+canconfig can0 start

@@ -1,0 +1,37 @@
+#/bin/bash
+
+#The device setup accordin to the requirements is done in four steps:
+# configuration of PDO identifier
+# configuration of PDO transmission type and transmission rate
+# configuration of the autostart behaviour
+# storing the data in the non-volatile memory of the device
+
+if [ $# -ne 2 ]
+then
+  echo "Usage: $0 {node-id} {node-id + 0x600}"
+  exit
+fi
+
+# the identifie for the first transmit PDO is configured via index 1800h, subindex 1
+# of the communication profile. The device is set to pre-operational state firs
+
+cansend can0 -i 0x00 0x80 $1
+cansend can0 -i $2 0x23 0x00 0x18 0x1 0x30 0x03 0x0 0x40
+
+# the data bytes 5 and 6 of message no. 2 define the identifier (330h in this
+# example). Olease note that the value is transmitted LSB first
+
+# In the next step the first transmit PDO is configured as event triggered and 
+# the associated cyclic timer is programmed
+cansend can0 -i $2 0x2F 0x00 0x18 0x02 0xFE 0x00 0x00 0x00
+cansend can0 -i $2 0x2B 0x00 0x18 0x05 0x64 0x00 0x00 0x00
+
+# The data bytes 5 and 6 of message n. 6 define the timer repetition rate in multiples 
+# of 1 millisecond (64h = 100 ms). Please note that the value is transmitted LSB first
+
+# Now the device is configured to start PDO data transmission just after power up
+# (no NMT start command required)
+cansend can0 -i $2 0x23 0x80 0x1f 0x00 0x08 0x00 0x00 0x00
+
+# In the final step the configuration is stored in the device
+# cansend can0 -i $2 0x23 0x10 0x10 0x01 0x73 0x61 0x76 0x65
