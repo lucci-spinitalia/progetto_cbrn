@@ -1,0 +1,4 @@
+#/bin/bash -x
+PROG_DIR="/home/root/Common"
+
+gcc -Wall main.c $PROG_DIR/Source/Socket_can/socket_can_interface.c $PROG_DIR/Source/Rs232/rs232.c $PROG_DIR/Source/Socket_udp/socket_udp.c $PROG_DIR/Source/Pc_interface/pc_interface_udp.c $PROG_DIR/Source/Arm/arm_udp.c -o ./centrale_controllo_stdof.o -ludev -I$PROG_DIR/Include/

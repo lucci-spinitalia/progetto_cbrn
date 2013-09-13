@@ -1,4 +1,0 @@
-#/bin/bash -x
-PROG_DIR="/home/root/Common"
-
-gcc -Wall main.c $PROG_DIR/Source/Socket_can/socket_can_interface.c $PROG_DIR/Source/Rs232/rs232.c -o ./centrale_controllo_stdof.o -ludev -I$PROG_DIR/Include/

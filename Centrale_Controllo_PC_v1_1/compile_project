@@ -1,4 +1,0 @@
-#/bin/bash -x
-PROG_DIR="/home/root/Centrale_Controllo_PC_v1_1"
-
-gcc -Wall main.c ./Socket_can/socket_can_interface.c ./Rs232/rs232.c ./Joystick/joystick.c ./Segway/segway.c -o ./centrale_controllo_stdof.o -ludev
