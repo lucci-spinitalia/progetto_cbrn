@@ -168,7 +168,7 @@ int main()
         if(bytes_read < 0)
           perror("Read from pc_interface_device");
 
-      } //if(FD_ISSET(rs232_device, &rd))
+      }
 
       if(FD_ISSET(pc_interface_client, &wr))
       {
@@ -176,7 +176,10 @@ int main()
         bytes_sent = pc_interface_send(pc_interface_client, &pc_interface_client_address);
 
         if(bytes_sent <= 0)
-          printf("Error on pc_interface_send");
+        {
+          printf("Error on pc_interface_send\n");
+          can_restart();
+        }
 
       }  //if(FD_ISSET(pc_interface_client, &wr))
     }
@@ -215,8 +218,8 @@ int redirect_stdof_message(int socket_can, int bytes_read, struct pc_interface_u
 	  memcpy(can_frame_to_write.data, &message.param.data[pc_interface_data_read], length_to_write);
       pc_interface_data_count -= length_to_write;
       pc_interface_data_read += length_to_write;
-	  
-	  bytes_sent = write(socket_can, &can_frame_to_write, sizeof(can_frame_to_write));
+  
+      bytes_sent = write(socket_can, &can_frame_to_write, sizeof(can_frame_to_write));
 
       if(bytes_sent == -1)
             return -1;
